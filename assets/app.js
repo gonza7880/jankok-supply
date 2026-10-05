@@ -29,3 +29,36 @@ if (form) {
 }
 
 document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+
+const heroVideo = document.querySelector('[data-hero-video]');
+const heroSection = document.querySelector('.hero');
+
+if (heroVideo) {
+  heroVideo.muted = true;
+  heroVideo.defaultMuted = true;
+  heroVideo.playsInline = true;
+
+  const tryPlayHero = async () => {
+    try {
+      await heroVideo.play();
+      heroSection?.classList.remove('video-blocked');
+    } catch (err) {
+      heroSection?.classList.add('video-blocked');
+    }
+  };
+
+  heroVideo.addEventListener('loadedmetadata', tryPlayHero, { once: true });
+  heroVideo.addEventListener('canplay', tryPlayHero);
+  window.addEventListener('load', tryPlayHero, { once: true });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) tryPlayHero();
+  });
+
+  ['pointerdown','touchstart','keydown'].forEach(evt => {
+    document.addEventListener(evt, tryPlayHero, { once: true, passive: true });
+  });
+
+  document.querySelector('[data-play-hero]')?.addEventListener('click', tryPlayHero);
+  tryPlayHero();
+}
