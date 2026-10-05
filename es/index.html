@@ -343,6 +343,63 @@
       <div class="footer-links"><a href="#servicios">Servicios</a><a href="#patagonia">Patagonia</a><a href="#contacto">Contacto</a><a href="/en">English</a></div>
     </div>
   </footer>
-<script src="/assets/app.js" defer></script>
+<script src="/assets/app-v9.js" defer></script>
+<script>
+(function(){
+  function selectPatagoniaPort(id){
+    if(!id) return;
+    var rows=document.querySelectorAll('.port-row');
+    var markers=document.querySelectorAll('.svg-port');
+    var activeTexts=document.querySelectorAll('[data-map-active]');
+
+    rows.forEach(function(row){
+      var active=row.getAttribute('data-port-id')===id;
+      row.classList.toggle('is-active',active);
+      row.setAttribute('aria-pressed',active?'true':'false');
+    });
+
+    markers.forEach(function(marker){
+      var active=marker.getAttribute('data-port-id')===id;
+      marker.classList.toggle('is-active',active);
+      marker.setAttribute('aria-pressed',active?'true':'false');
+    });
+
+    var row=Array.prototype.find.call(rows,function(item){
+      return item.getAttribute('data-port-id')===id;
+    });
+    if(row){
+      var title=(row.querySelector('strong')||{}).textContent||'';
+      var desc=(row.querySelector('small')||{}).textContent||'';
+      var region=(desc.split('·')[0]||'').trim();
+      activeTexts.forEach(function(el){
+        el.textContent=title+(region?' · '+region:'');
+      });
+    }
+  }
+
+  window.selectPatagoniaPort=selectPatagoniaPort;
+  window.activatePatagoniaPort=selectPatagoniaPort;
+
+  function bindPatagonia(){
+    var items=document.querySelectorAll('.port-row,.svg-port');
+    items.forEach(function(el){
+      if(el.getAttribute('data-bound-mobile')==='1') return;
+      el.setAttribute('data-bound-mobile','1');
+      var handler=function(){ selectPatagoniaPort(el.getAttribute('data-port-id')); };
+      el.addEventListener('pointerdown',handler,{passive:true});
+      el.addEventListener('touchstart',handler,{passive:true});
+      el.addEventListener('click',handler);
+      el.addEventListener('focus',handler);
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',bindPatagonia,{once:true});
+  } else {
+    bindPatagonia();
+  }
+  setTimeout(bindPatagonia,500);
+})();
+</script>
 </body>
 </html>
