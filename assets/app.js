@@ -65,37 +65,87 @@ if (heroVideo) {
 
 
 
+
 function initPatagoniaInlineMap(){
   const rows=Array.from(document.querySelectorAll('.port-row'));
   const markers=Array.from(document.querySelectorAll('.svg-port'));
-  const activeText=document.querySelector('[data-map-active]');
+  const activeTexts=Array.from(document.querySelectorAll('[data-map-active]'));
   if(!rows.length||!markers.length) return;
 
   function activate(id){
-    rows.forEach(function(row){ row.classList.toggle('is-active',row.dataset.portId===id); });
-    markers.forEach(function(marker){ marker.classList.toggle('is-active',marker.dataset.portId===id); });
+    if(!id) return;
+    rows.forEach(function(row){
+      const active=row.dataset.portId===id;
+      row.classList.toggle('is-active',active);
+      row.setAttribute('aria-pressed',active?'true':'false');
+    });
+    markers.forEach(function(marker){
+      const active=marker.dataset.portId===id;
+      marker.classList.toggle('is-active',active);
+      marker.setAttribute('aria-pressed',active?'true':'false');
+    });
+
     const row=rows.find(function(item){return item.dataset.portId===id;});
-    if(row&&activeText){
-      const title=row.querySelector('strong')?.textContent||'';
-      const desc=row.querySelector('small')?.textContent||'';
-      const region=desc.split('·')[0].trim();
-      activeText.textContent=title+(region?' · '+region:'');
+    if(row){
+      const title=(row.querySelector('strong')||{}).textContent||'';
+      const desc=(row.querySelector('small')||{}).textContent||'';
+      const region=(desc.split('·')[0]||'').trim();
+      activeTexts.forEach(function(el){
+        el.textContent=title+(region?' · '+region:'');
+      });
     }
   }
 
+  window.activatePatagoniaPort=activate;
+
   rows.forEach(function(row){
-    ['mouseenter','focus','click'].forEach(function(evt){
-      row.addEventListener(evt,function(){activate(row.dataset.portId);});
-    });
+    row.setAttribute('aria-pressed',row.classList.contains('is-active')?'true':'false');
   });
   markers.forEach(function(marker){
-    ['mouseenter','focus','click'].forEach(function(evt){
-      marker.addEventListener(evt,function(){activate(marker.dataset.portId);});
-    });
+    marker.setAttribute('aria-pressed',marker.classList.contains('is-active')?'true':'false');
+  });
+
+  function handleTarget(target){
+    const selectable=target && target.closest ? target.closest('.port-row, .svg-port') : null;
+    if(selectable && selectable.dataset.portId){
+      activate(selectable.dataset.portId);
+      return true;
+    }
+    return false;
+  }
+
+  document.addEventListener('pointerup',function(e){
+    handleTarget(e.target);
+  },true);
+
+  document.addEventListener('touchend',function(e){
+    handleTarget(e.target);
+  },{capture:true,passive:true});
+
+  document.addEventListener('click',function(e){
+    handleTarget(e.target);
+  },true);
+
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Enter' && e.key!==' ') return;
+    const selectable=e.target && e.target.closest ? e.target.closest('.port-row, .svg-port') : null;
+    if(selectable && selectable.dataset.portId){
+      e.preventDefault();
+      activate(selectable.dataset.portId);
+    }
+  },true);
+
+  rows.forEach(function(row){
+    row.addEventListener('mouseenter',function(){activate(row.dataset.portId);});
+    row.addEventListener('focus',function(){activate(row.dataset.portId);});
+  });
+  markers.forEach(function(marker){
+    marker.addEventListener('mouseenter',function(){activate(marker.dataset.portId);});
+    marker.addEventListener('focus',function(){activate(marker.dataset.portId);});
   });
 }
 if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',initPatagoniaInlineMap);
+  document.addEventListener('DOMContentLoaded',initPatagoniaInlineMap,{once:true});
 }else{
   initPatagoniaInlineMap();
 }
