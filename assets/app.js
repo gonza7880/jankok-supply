@@ -21,8 +21,8 @@ if (form) {
     const lang = document.documentElement.lang === 'en' ? 'en' : 'es';
     const subject = lang === 'en' ? 'RFQ / Vessel supply request' : 'Solicitud de cotización / Abastecimiento marítimo';
     const labels = lang === 'en'
-      ? {name:'Name',company:'Company',email:'Email',vessel:'Vessel',port:'Port / ETA',message:'Requirement'}
-      : {name:'Nombre',company:'Empresa',email:'Email',vessel:'Buque',port:'Puerto / ETA',message:'Requerimiento'};
+      ? {name:'Name',company:'Company / Agency',email:'Email',phone:'Phone / WhatsApp',vessel:'Vessel',service:'Requirement type',port:'Port',eta:'ETA',message:'Requirement'}
+      : {name:'Nombre',company:'Empresa / Agencia',email:'Email',phone:'Tel. / WhatsApp',vessel:'Buque',service:'Tipo de requerimiento',port:'Puerto',eta:'ETA',message:'Requerimiento'};
     const body = [...fd.entries()].map(([k,v]) => `${labels[k] || k}: ${v}`).join('\n');
     window.location.href = `mailto:info@jankok.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
