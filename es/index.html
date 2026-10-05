@@ -11,7 +11,8 @@
   <link rel="alternate" hreflang="en" href="https://www.jankoksupply.com/en" />
   <link rel="alternate" hreflang="x-default" href="https://www.jankoksupply.com/es" />
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/assets/styles-services-v3.css" />
+  <link rel="stylesheet" href="/assets/styles-patagonia-map-v4.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <meta property="og:title" content="Jankok Ship Suppliers | Argentina & Patagonia" />
   <meta property="og:description" content="Provisiones, cadena de frío y logística de abastecimiento marítimo con respuesta operativa y soporte bilingüe." />
   <meta property="og:type" content="website" />
@@ -137,22 +138,37 @@
     </section>
 
     <section class="section patagonia" id="patagonia">
-      <div class="container patagonia-grid">
-        <div class="patagonia-map reveal">
-          <div class="map-kicker">Argentina · Patagonia</div>
-          <h3>Logística preparada para una región con requisitos específicos.</h3>
-          <div class="route-line"><span>Ruta operativa destacada</span><strong>Buenos Aires / Mendoza → Punta Quilla · Ushuaia</strong></div>
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Patagonia</span><h2>Cobertura operativa sobre puertos clave del sur.</h2></div>
+          <p>Integramos provisiones, reefer, stores y coordinación documental en una red de puertos patagónicos para responder con precisión en ventanas exigentes.</p>
         </div>
-        <div class="compliance reveal">
-          <span class="eyebrow">Patagonia protegida</span>
-          <h2 class="section-title">No alcanza con transportar: hay que ingresar correctamente.</h2>
-          <p>La Patagonia argentina aplica controles sanitarios y fitosanitarios específicos. Por eso incorporamos esos requisitos al diseño de la operación, especialmente para frutas, carnes y otros productos sensibles.</p>
-          <div class="compliance-list">
-            <div class="compliance-item"><div class="check">✓</div><div><strong>Tratamientos y controles fitosanitarios</strong><span>Coordinación de procesos requeridos para determinados productos vegetales antes de ingresar a la región.</span></div></div>
-            <div class="compliance-item"><div class="check">✓</div><div><strong>Documentación sanitaria</strong><span>Validación de certificados aplicables para carnes, pescado, aves y subproductos según el tipo de mercadería.</span></div></div>
-            <div class="compliance-item"><div class="check">✓</div><div><strong>Planificación previa de la carga</strong><span>Revisión temprana de restricciones para evitar reprocesos, rechazos o demoras en tránsito.</span></div></div>
+        <div class="patagonia-shell">
+          <div class="patagonia-side reveal">
+            <div class="patagonia-intro-card">
+              <span class="map-kicker">Red operativa</span>
+              <h3>Una sola coordinación para una geografía compleja.</h3>
+              <p>Desde Chubut hasta Tierra del Fuego, centralizamos abastecimiento y seguimiento operativo para reducir fricción en cada escala.</p>
+              <div class="map-route-summary map-route-summary--inline"><span>Ruta destacada</span><strong>Buenos Aires / Mendoza → Patagonia → Ushuaia</strong></div>
+            </div>
+            <div class="patagonia-port-list">
+              <button class="port-row is-active" type="button" data-port-id="comodoro" data-lat="-45.8641" data-lng="-67.4790" data-zoom="7"><span class="port-row__index">01</span><span class="port-row__body"><strong>Puerto Comodoro Rivadavia</strong><small>Chubut · Provisiones, stores y coordinación operativa</small></span></button>
+              <button class="port-row" type="button" data-port-id="deseado" data-lat="-47.7515" data-lng="-65.8937" data-zoom="7"><span class="port-row__index">02</span><span class="port-row__body"><strong>Puerto Deseado</strong><small>Santa Cruz · Reefer, pesca y consolidación regional</small></span></button>
+              <button class="port-row" type="button" data-port-id="quilla" data-lat="-50.1174" data-lng="-68.4163" data-zoom="7"><span class="port-row__index">03</span><span class="port-row__body"><strong>Puerto de Punta Quilla</strong><small>Santa Cruz · Programación, control y entregas</small></span></button>
+              <button class="port-row" type="button" data-port-id="loyola" data-lat="-51.6230" data-lng="-69.0227" data-zoom="7"><span class="port-row__index">04</span><span class="port-row__body"><strong>Punta Loyola</strong><small>Río Gallegos · Soporte técnico y regional</small></span></button>
+              <button class="port-row" type="button" data-port-id="ushuaia" data-lat="-54.8159" data-lng="-68.3175" data-zoom="8"><span class="port-row__index">05</span><span class="port-row__body"><strong>Puerto Ushuaia</strong><small>Tierra del Fuego · Cruceros, offshore y última milla</small></span></button>
+            </div>
           </div>
-          <p class="note">*Los requisitos regulatorios pueden modificarse. Se validan nuevamente para cada operación y tipo de carga.</p>
+          <div class="patagonia-map-card reveal">
+            <div class="patagonia-map-topbar"><span>Mapa de cobertura</span><strong>5 nodos estratégicos</strong></div>
+            <div id="patagonia-map" class="patagonia-map-canvas" aria-label="Mapa de cobertura operativa en Patagonia"></div>
+            <div class="map-route-summary"><span>Cobertura visual</span><strong>Puertos conectados sobre la costa patagónica</strong></div>
+          </div>
+        </div>
+        <div class="patagonia-benefits reveal">
+          <article class="pat-benefit"><strong>Ingreso sanitario y fitosanitario</strong><span>Validamos restricciones y documentación aplicable antes de cada despacho.</span></article>
+          <article class="pat-benefit"><strong>Planificación previa de la carga</strong><span>Anticipamos ventanas, consolidación y temperatura según tipo de producto.</span></article>
+          <article class="pat-benefit"><strong>Coordinación operativa integral</strong><span>Menos puntos de contacto, más control sobre tiempos, frío y entrega final.</span></article>
         </div>
       </div>
     </section>
@@ -230,6 +246,7 @@
       <div class="footer-links"><a href="#servicios">Servicios</a><a href="#patagonia">Patagonia</a><a href="#contacto">Contacto</a><a href="/en">English</a></div>
     </div>
   </footer>
-  <script src="/assets/app.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>

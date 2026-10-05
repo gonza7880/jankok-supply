@@ -11,7 +11,8 @@
   <link rel="alternate" hreflang="en" href="https://www.jankoksupply.com/en" />
   <link rel="alternate" hreflang="x-default" href="https://www.jankoksupply.com/es" />
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/assets/styles-services-v3.css" />
+  <link rel="stylesheet" href="/assets/styles-patagonia-map-v4.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <meta property="og:title" content="Jankok Ship Suppliers | Argentina & Patagonia" />
   <meta property="og:description" content="Provisions, cold chain and marine supply logistics with fast operational response and bilingual support." />
   <meta property="og:type" content="website" />
@@ -65,7 +66,41 @@
 
     <section class="section cold-chain"><div class="container cold-grid"><div class="cold-copy reveal"><span class="eyebrow">Cold chain</span><h2>Temperature controlled. Operation controlled.</h2><p>Refrigerated logistics are critical when a port call leaves no room for error. We work with cold storage, refrigerated transport and reefer solutions to protect cargo quality through delivery.</p><div class="cold-specs"><div class="spec"><strong>-30°C</strong><span>Range for frozen cargo</span></div><div class="spec"><strong>+5°C</strong><span>Range for fresh products</span></div><div class="spec"><strong>Dual</strong><span>Differentiated temperature configurations</span></div><div class="spec"><strong>Tracking</strong><span>Operational cargo follow-up</span></div></div></div><div class="cold-media reveal"><img class="truck" src="https://static.wixstatic.com/media/66ac55_ef55382387be4fb7bd0240c224589e4e~mv2.jpg/v1/fill/w_1200,h_720,al_c,q_85,enc_avif,quality_auto/66ac55_ef55382387be4fb7bd0240c224589e4e~mv2.jpg" alt="Refrigerated truck used for provision transport" loading="lazy" /><img class="small" src="https://static.wixstatic.com/media/66ac55_e5b4ac0119b64d5a85d8a198bc22c9cc~mv2.jpg/v1/fill/w_1200,h_720,al_c,q_85,enc_avif,quality_auto/66ac55_e5b4ac0119b64d5a85d8a198bc22c9cc~mv2.jpg" alt="Cold storage area" loading="lazy" /></div></div></section>
 
-    <section class="section patagonia" id="patagonia"><div class="container patagonia-grid"><div class="patagonia-map reveal"><div class="map-kicker">Argentina · Patagonia</div><h3>Logistics designed for a region with specific requirements.</h3><div class="route-line"><span>Highlighted operating route</span><strong>Buenos Aires / Mendoza → Punta Quilla · Ushuaia</strong></div></div><div class="compliance reveal"><span class="eyebrow">Protected Patagonia</span><h2 class="section-title">Moving the cargo is only half the job. Entering correctly matters.</h2><p>Argentine Patagonia applies specific sanitary and phytosanitary controls. We incorporate those requirements into the operation, particularly for fruit, meat and other sensitive products.</p><div class="compliance-list"><div class="compliance-item"><div class="check">✓</div><div><strong>Phytosanitary treatment and controls</strong><span>Coordination of required processes for specific plant products before entering the region.</span></div></div><div class="compliance-item"><div class="check">✓</div><div><strong>Sanitary documentation</strong><span>Validation of applicable certificates for meat, fish, poultry and related products according to cargo type.</span></div></div><div class="compliance-item"><div class="check">✓</div><div><strong>Pre-shipment planning</strong><span>Early review of restrictions to avoid rework, rejection or transit delays.</span></div></div></div><p class="note">*Regulatory requirements may change and are revalidated for each operation and cargo type.</p></div></div></section>
+    <section class="section patagonia" id="patagonia">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Patagonia</span><h2>Operational coverage across key southern ports.</h2></div>
+          <p>We integrate provisions, reefer handling, stores and documentation across a Patagonian port network to respond precisely under demanding windows.</p>
+        </div>
+        <div class="patagonia-shell">
+          <div class="patagonia-side reveal">
+            <div class="patagonia-intro-card">
+              <span class="map-kicker">Operating network</span>
+              <h3>One coordination point for a demanding geography.</h3>
+              <p>From Chubut to Tierra del Fuego, we centralize marine supply and operational follow-up to reduce friction at every port call.</p>
+              <div class="map-route-summary map-route-summary--inline"><span>Highlighted route</span><strong>Buenos Aires / Mendoza → Patagonia → Ushuaia</strong></div>
+            </div>
+            <div class="patagonia-port-list">
+              <button class="port-row is-active" type="button" data-port-id="comodoro" data-lat="-45.8641" data-lng="-67.4790" data-zoom="7"><span class="port-row__index">01</span><span class="port-row__body"><strong>Puerto Comodoro Rivadavia</strong><small>Chubut · Provisions, stores and operating coordination</small></span></button>
+              <button class="port-row" type="button" data-port-id="deseado" data-lat="-47.7515" data-lng="-65.8937" data-zoom="7"><span class="port-row__index">02</span><span class="port-row__body"><strong>Puerto Deseado</strong><small>Santa Cruz · Reefer, fishing and regional consolidation</small></span></button>
+              <button class="port-row" type="button" data-port-id="quilla" data-lat="-50.1174" data-lng="-68.4163" data-zoom="7"><span class="port-row__index">03</span><span class="port-row__body"><strong>Puerto de Punta Quilla</strong><small>Santa Cruz · Scheduling, control and deliveries</small></span></button>
+              <button class="port-row" type="button" data-port-id="loyola" data-lat="-51.6230" data-lng="-69.0227" data-zoom="7"><span class="port-row__index">04</span><span class="port-row__body"><strong>Punta Loyola</strong><small>Río Gallegos · Technical and regional support</small></span></button>
+              <button class="port-row" type="button" data-port-id="ushuaia" data-lat="-54.8159" data-lng="-68.3175" data-zoom="8"><span class="port-row__index">05</span><span class="port-row__body"><strong>Puerto Ushuaia</strong><small>Tierra del Fuego · Cruise, offshore and last-mile support</small></span></button>
+            </div>
+          </div>
+          <div class="patagonia-map-card reveal">
+            <div class="patagonia-map-topbar"><span>Coverage map</span><strong>5 strategic nodes</strong></div>
+            <div id="patagonia-map" class="patagonia-map-canvas" aria-label="Operational coverage map in Patagonia"></div>
+            <div class="map-route-summary"><span>Visual coverage</span><strong>Connected ports along the Patagonian coast</strong></div>
+          </div>
+        </div>
+        <div class="patagonia-benefits reveal">
+          <article class="pat-benefit"><strong>Sanitary and phytosanitary entry control</strong><span>We validate restrictions and applicable documentation before every dispatch.</span></article>
+          <article class="pat-benefit"><strong>Pre-shipment planning</strong><span>We anticipate windows, consolidation and temperature requirements by product type.</span></article>
+          <article class="pat-benefit"><strong>End-to-end operational coordination</strong><span>Fewer handoffs, more control over timing, cold chain and final delivery.</span></article>
+        </div>
+      </div>
+    </section>
 
     <section class="section gallery"><div class="container"><div class="section-head reveal"><div><span class="eyebrow">Real operations</span><h2>Infrastructure, product and logistics.</h2></div><p>A selection of facilities, storage and products used in our supply operation.</p></div><div class="gallery-grid reveal"><figure><img src="https://static.wixstatic.com/media/66ac55_1e14abbada6b48deaa322aeae8d9f936~mv2.jpg/v1/fill/w_900,h_1200,al_c,q_85,enc_avif,quality_auto/66ac55_1e14abbada6b48deaa322aeae8d9f936~mv2.jpg" alt="Warehouse and merchandise" loading="lazy" /></figure><figure><img src="https://static.wixstatic.com/media/66ac55_34f77e0b632d4ae6b66f838756ac2cf2~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/66ac55_34f77e0b632d4ae6b66f838756ac2cf2~mv2.jpg" alt="Fresh refrigerated products" loading="lazy" /></figure><figure><img src="https://static.wixstatic.com/media/66ac55_1b1ba0f8efdf49ca8645f191054997fb~mv2.jpg/v1/fill/w_900,h_1200,al_c,q_85,enc_avif,quality_auto/66ac55_1b1ba0f8efdf49ca8645f191054997fb~mv2.jpg" alt="Fruit and vegetables prepared for supply" loading="lazy" /></figure><figure><img src="https://static.wixstatic.com/media/66ac55_bc87ddc6f4f5495caa486f21f2ff6565~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/66ac55_bc87ddc6f4f5495caa486f21f2ff6565~mv2.jpg" alt="Loading and logistics area" loading="lazy" /></figure></div></div></section>
 
@@ -75,6 +110,7 @@
   </main>
 
   <footer class="footer"><div class="container footer-row"><a class="brand" href="/en"><img src="/assets/logo-mark.svg" alt="" /><div class="brand-copy"><strong>JANKOK</strong><span>Ship Suppliers</span></div></a><div>© <span data-year></span> Jankok Ship Suppliers. Argentina.</div><div class="footer-links"><a href="#services">Services</a><a href="#patagonia">Patagonia</a><a href="#contact">Contact</a><a href="/es">Castellano</a></div></div></footer>
-  <script src="/assets/app.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>

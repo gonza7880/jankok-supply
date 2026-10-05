@@ -62,3 +62,66 @@ if (heroVideo) {
   document.querySelector('[data-play-hero]')?.addEventListener('click', tryPlayHero);
   tryPlayHero();
 }
+
+
+function initPatagoniaMap(){
+  const mapEl=document.getElementById('patagonia-map');
+  const rows=Array.from(document.querySelectorAll('.port-row'));
+  if(!mapEl||!rows.length||typeof L==='undefined') return;
+
+  const map=L.map(mapEl,{scrollWheelZoom:false,zoomControl:true,attributionControl:true}).setView([-50.3,-68.2],5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:18,
+    attribution:'&copy; OpenStreetMap'
+  }).addTo(map);
+
+  const route=[[-45.8641,-67.4790],[-47.7515,-65.8937],[-50.1174,-68.4163],[-51.6230,-69.0227],[-54.8159,-68.3175]];
+  L.polyline(route,{color:'#0f7a83',weight:3,opacity:.72,dashArray:'10 8'}).addTo(map);
+
+  const markers=new Map();
+  function icon(label,active){
+    return L.divIcon({
+      className:'',
+      html:'<div class="map-marker'+(active?' is-highlight':'')+'">'+label+'</div>',
+      iconSize:[30,30],
+      iconAnchor:[15,15],
+      popupAnchor:[0,-14]
+    });
+  }
+
+  rows.forEach(function(row,index){
+    const lat=parseFloat(row.dataset.lat);
+    const lng=parseFloat(row.dataset.lng);
+    const title=(row.querySelector('strong')||{}).textContent||'';
+    const desc=(row.querySelector('small')||{}).textContent||'';
+    const marker=L.marker([lat,lng],{icon:icon(String(index+1),row.classList.contains('is-active'))}).addTo(map);
+    marker.bindPopup('<div class="map-popup"><span>'+String(index+1).padStart(2,'0')+' / Puerto</span><strong>'+title+'</strong><p>'+desc+'</p></div>');
+    marker.on('click',function(){activate(row.dataset.portId,true);});
+    markers.set(row.dataset.portId,{marker:marker,index:index});
+  });
+
+  function activate(id,openPopup){
+    rows.forEach(function(row,idx){
+      const active=row.dataset.portId===id;
+      row.classList.toggle('is-active',active);
+      const item=markers.get(row.dataset.portId);
+      if(item) item.marker.setIcon(icon(String(idx+1),active));
+      if(active){
+        const lat=parseFloat(row.dataset.lat);
+        const lng=parseFloat(row.dataset.lng);
+        const zoom=parseInt(row.dataset.zoom||'7',10);
+        map.flyTo([lat,lng],zoom,{duration:.8});
+        if(openPopup&&item) item.marker.openPopup();
+      }
+    });
+  }
+
+  rows.forEach(function(row){
+    row.addEventListener('mouseenter',function(){activate(row.dataset.portId,false);});
+    row.addEventListener('focus',function(){activate(row.dataset.portId,false);});
+    row.addEventListener('click',function(){activate(row.dataset.portId,true);});
+  });
+
+  setTimeout(function(){map.invalidateSize();},250);
+}
+document.addEventListener('DOMContentLoaded',initPatagoniaMap);
