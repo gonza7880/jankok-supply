@@ -64,13 +64,36 @@ if (heroVideo) {
 }
 
 
-function initPatagoniaMap(){
+function renderPatagoniaFallback(){
+  const mapEl=document.getElementById('patagonia-map');
+  if(!mapEl||mapEl.dataset.fallback==='1') return;
+  mapEl.dataset.fallback='1';
+  const lang=document.documentElement.lang==='en'?'en':'es';
+  const ports=lang==='en'
+    ? [['01','Comodoro Rivadavia','Chubut'],['02','Puerto Deseado','Santa Cruz'],['03','Punta Quilla','Santa Cruz'],['04','Punta Loyola','Río Gallegos'],['05','Ushuaia','Tierra del Fuego']]
+    : [['01','Comodoro Rivadavia','Chubut'],['02','Puerto Deseado','Santa Cruz'],['03','Punta Quilla','Santa Cruz'],['04','Punta Loyola','Río Gallegos'],['05','Ushuaia','Tierra del Fuego']];
+  mapEl.innerHTML='<div class="map-fallback"><div class="map-fallback__ocean"><div class="map-fallback__land"></div><div class="map-fallback__route"></div>'+ports.map((p,i)=>'<div class="map-fallback__port map-fallback__port--'+(i+1)+'"><b>'+p[0]+'</b><span><strong>'+p[1]+'</strong><small>'+p[2]+'</small></span></div>').join('')+'</div></div>';
+}
+
+function initPatagoniaMap(attempt){
+  attempt=attempt||0;
   const mapEl=document.getElementById('patagonia-map');
   const rows=Array.from(document.querySelectorAll('.port-row'));
-  if(!mapEl||!rows.length||typeof L==='undefined') return;
+  if(!mapEl||!rows.length) return;
+  if(mapEl.dataset.ready==='1') return;
 
-  const map=L.map(mapEl,{scrollWheelZoom:false,zoomControl:true,attributionControl:true}).setView([-50.3,-68.2],5);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  if(typeof L==='undefined'){
+    if(attempt<10){
+      setTimeout(function(){initPatagoniaMap(attempt+1);},450);
+      return;
+    }
+    renderPatagoniaFallback();
+    return;
+  }
+
+  mapEl.dataset.ready='1';
+  const map=L.map(mapEl,{scrollWheelZoom:false,zoomControl:true,attributionControl:true,tap:true}).setView([-50.3,-68.2],5);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
     maxZoom:18,
     attribution:'&copy; OpenStreetMap'
   }).addTo(map);
@@ -80,18 +103,11 @@ function initPatagoniaMap(){
 
   const markers=new Map();
   function icon(label,active){
-    return L.divIcon({
-      className:'',
-      html:'<div class="map-marker'+(active?' is-highlight':'')+'">'+label+'</div>',
-      iconSize:[30,30],
-      iconAnchor:[15,15],
-      popupAnchor:[0,-14]
-    });
+    return L.divIcon({className:'',html:'<div class="map-marker'+(active?' is-highlight':'')+'">'+label+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]});
   }
 
   rows.forEach(function(row,index){
-    const lat=parseFloat(row.dataset.lat);
-    const lng=parseFloat(row.dataset.lng);
+    const lat=parseFloat(row.dataset.lat), lng=parseFloat(row.dataset.lng);
     const title=(row.querySelector('strong')||{}).textContent||'';
     const desc=(row.querySelector('small')||{}).textContent||'';
     const marker=L.marker([lat,lng],{icon:icon(String(index+1),row.classList.contains('is-active'))}).addTo(map);
@@ -107,10 +123,8 @@ function initPatagoniaMap(){
       const item=markers.get(row.dataset.portId);
       if(item) item.marker.setIcon(icon(String(idx+1),active));
       if(active){
-        const lat=parseFloat(row.dataset.lat);
-        const lng=parseFloat(row.dataset.lng);
-        const zoom=parseInt(row.dataset.zoom||'7',10);
-        map.flyTo([lat,lng],zoom,{duration:.8});
+        const lat=parseFloat(row.dataset.lat), lng=parseFloat(row.dataset.lng), zoom=parseInt(row.dataset.zoom||'7',10);
+        map.flyTo([lat,lng],zoom,{duration:.7});
         if(openPopup&&item) item.marker.openPopup();
       }
     });
@@ -123,5 +137,13 @@ function initPatagoniaMap(){
   });
 
   setTimeout(function(){map.invalidateSize();},250);
+  setTimeout(function(){map.invalidateSize();},900);
+  window.addEventListener('orientationchange',function(){setTimeout(function(){map.invalidateSize();},350);});
+  window.addEventListener('resize',function(){setTimeout(function(){map.invalidateSize();},180);});
 }
-document.addEventListener('DOMContentLoaded',initPatagoniaMap);
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',function(){initPatagoniaMap(0);});
+}else{
+  initPatagoniaMap(0);
+}
