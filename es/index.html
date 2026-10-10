@@ -159,15 +159,16 @@
               <div class="map-route-summary map-route-summary--inline"><span>Ruta destacada</span><strong>Buenos Aires / Mendoza → Patagonia → Ushuaia</strong></div>
             </div>
             <div class="patagonia-port-list">
-              <button class="port-row is-active" type="button" data-port-id="comodoro" data-lat="-45.8641" data-lng="-67.4790" data-zoom="7"><span class="port-row__index">01</span><span class="port-row__body"><strong>Puerto Comodoro Rivadavia</strong><small>Chubut · Provisiones, stores y coordinación operativa</small></span></button>
-              <button class="port-row" type="button" data-port-id="deseado" data-lat="-47.7515" data-lng="-65.8937" data-zoom="7"><span class="port-row__index">02</span><span class="port-row__body"><strong>Puerto Deseado</strong><small>Santa Cruz · Reefer, pesca y consolidación regional</small></span></button>
-              <button class="port-row" type="button" data-port-id="quilla" data-lat="-50.1174" data-lng="-68.4163" data-zoom="7"><span class="port-row__index">03</span><span class="port-row__body"><strong>Puerto de Punta Quilla</strong><small>Santa Cruz · Programación, control y entregas</small></span></button>
-              <button class="port-row" type="button" data-port-id="loyola" data-lat="-51.6230" data-lng="-69.0227" data-zoom="7"><span class="port-row__index">04</span><span class="port-row__body"><strong>Punta Loyola</strong><small>Río Gallegos · Soporte técnico y regional</small></span></button>
-              <button class="port-row" type="button" data-port-id="ushuaia" data-lat="-54.8159" data-lng="-68.3175" data-zoom="8"><span class="port-row__index">05</span><span class="port-row__body"><strong>Puerto Ushuaia</strong><small>Tierra del Fuego · Cruceros, offshore y última milla</small></span></button>
+              <button class="port-row" type="button" data-port-id="san-antonio-este" data-lat="-40.731" data-lng="-64.956" data-zoom="7"><span class="port-row__index">01</span><span class="port-row__body"><strong>Puerto San Antonio Este</strong><small>Río Negro · Abastecimiento y coordinación portuaria</small></span></button>
+              <button class="port-row is-active" type="button" data-port-id="comodoro" data-lat="-45.8641" data-lng="-67.4790" data-zoom="7"><span class="port-row__index">02</span><span class="port-row__body"><strong>Puerto Comodoro Rivadavia</strong><small>Chubut · Provisiones, stores y coordinación operativa</small></span></button>
+              <button class="port-row" type="button" data-port-id="deseado" data-lat="-47.7515" data-lng="-65.8937" data-zoom="7"><span class="port-row__index">03</span><span class="port-row__body"><strong>Puerto Deseado</strong><small>Santa Cruz · Reefer, pesca y consolidación regional</small></span></button>
+              <button class="port-row" type="button" data-port-id="quilla" data-lat="-50.1174" data-lng="-68.4163" data-zoom="7"><span class="port-row__index">04</span><span class="port-row__body"><strong>Puerto de Punta Quilla</strong><small>Santa Cruz · Programación, control y entregas</small></span></button>
+              <button class="port-row" type="button" data-port-id="loyola" data-lat="-51.6230" data-lng="-69.0227" data-zoom="7"><span class="port-row__index">05</span><span class="port-row__body"><strong>Punta Loyola</strong><small>Río Gallegos · Soporte técnico y regional</small></span></button>
+              <button class="port-row" type="button" data-port-id="ushuaia" data-lat="-54.8159" data-lng="-68.3175" data-zoom="8"><span class="port-row__index">06</span><span class="port-row__body"><strong>Puerto Ushuaia</strong><small>Tierra del Fuego · Cruceros, offshore y última milla</small></span></button>
             </div>
           </div>
           <div class="patagonia-map-card reveal">
-            <div class="patagonia-map-topbar"><span>Mapa de cobertura</span><strong>5 nodos estratégicos</strong></div>
+            <div class="patagonia-map-topbar"><span>Mapa de cobertura</span><strong>6 nodos estratégicos</strong></div>
             <div id="patagonia-map" class="patagonia-map-canvas patagonia-inline-map" aria-label="Mapa ilustrado de cobertura operativa en Patagonia">
   <svg class="patagonia-svg" viewBox="0 0 620 780" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
     <defs>
@@ -191,12 +192,18 @@
     <text x="190" y="214" class="map-region-label">CHUBUT</text>
     <text x="190" y="430" class="map-region-label">SANTA CRUZ</text>
     <text x="180" y="690" class="map-region-label">TIERRA DEL FUEGO</text>
-    <polyline class="patagonia-route-line" points="362.8,280.6 444.7,370.9 314.3,484.1 283,556.2 319.4,709"/>
+    <polyline class="patagonia-route-line" points="522,146 362.8,280.6 444.7,370.9 314.3,484.1 283,556.2 319.4,709"/>
     
+      <g class="svg-port" data-port-id="san-antonio-este" tabindex="0" role="button" aria-label="Puerto San Antonio Este">
+        <circle class="svg-port-halo" cx="522" cy="146" r="22"/>
+        <circle class="svg-port-dot" cx="522" cy="146" r="15"/>
+        <text class="svg-port-num" x="522" y="151" text-anchor="middle">1</text>
+        <g class="svg-port-label" transform="translate(310 110)"><rect width="196" height="38" rx="11"/><text x="12" y="24">San Antonio Este</text></g>
+      </g>
       <g class="svg-port is-active" data-port-id="comodoro" tabindex="0" role="button" aria-label="Comodoro Rivadavia">
         <circle class="svg-port-halo" cx="362.8" cy="280.6" r="22"/>
         <circle class="svg-port-dot" cx="362.8" cy="280.6" r="15"/>
-        <text class="svg-port-num" x="362.8" y="285.6" text-anchor="middle">1</text>
+        <text class="svg-port-num" x="362.8" y="285.6" text-anchor="middle">2</text>
         <g class="svg-port-label" transform="translate(396 254)">
           <rect width="166" height="38" rx="11"/>
           <text x="12" y="24">Comodoro Rivadavia</text>
@@ -205,7 +212,7 @@
       <g class="svg-port" data-port-id="deseado" tabindex="0" role="button" aria-label="Puerto Deseado">
         <circle class="svg-port-halo" cx="444.7" cy="370.9" r="22"/>
         <circle class="svg-port-dot" cx="444.7" cy="370.9" r="15"/>
-        <text class="svg-port-num" x="444.7" y="375.9" text-anchor="middle">2</text>
+        <text class="svg-port-num" x="444.7" y="375.9" text-anchor="middle">3</text>
         <g class="svg-port-label" transform="translate(460 348)">
           <rect width="132" height="38" rx="11"/>
           <text x="12" y="24">Puerto Deseado</text>
@@ -214,7 +221,7 @@
       <g class="svg-port" data-port-id="quilla" tabindex="0" role="button" aria-label="Punta Quilla">
         <circle class="svg-port-halo" cx="314.3" cy="484.1" r="22"/>
         <circle class="svg-port-dot" cx="314.3" cy="484.1" r="15"/>
-        <text class="svg-port-num" x="314.3" y="489.1" text-anchor="middle">3</text>
+        <text class="svg-port-num" x="314.3" y="489.1" text-anchor="middle">4</text>
         <g class="svg-port-label" transform="translate(335 463)">
           <rect width="118" height="38" rx="11"/>
           <text x="12" y="24">Punta Quilla</text>
@@ -223,7 +230,7 @@
       <g class="svg-port" data-port-id="loyola" tabindex="0" role="button" aria-label="Punta Loyola">
         <circle class="svg-port-halo" cx="283" cy="556.2" r="22"/>
         <circle class="svg-port-dot" cx="283" cy="556.2" r="15"/>
-        <text class="svg-port-num" x="283" y="561.2" text-anchor="middle">4</text>
+        <text class="svg-port-num" x="283" y="561.2" text-anchor="middle">5</text>
         <g class="svg-port-label" transform="translate(304 542)">
           <rect width="118" height="38" rx="11"/>
           <text x="12" y="24">Punta Loyola</text>
@@ -232,7 +239,7 @@
       <g class="svg-port" data-port-id="ushuaia" tabindex="0" role="button" aria-label="Ushuaia">
         <circle class="svg-port-halo" cx="319.4" cy="709" r="22"/>
         <circle class="svg-port-dot" cx="319.4" cy="709" r="15"/>
-        <text class="svg-port-num" x="319.4" y="714" text-anchor="middle">5</text>
+        <text class="svg-port-num" x="319.4" y="714" text-anchor="middle">6</text>
         <g class="svg-port-label" transform="translate(343 692)">
           <rect width="92" height="38" rx="11"/>
           <text x="12" y="24">Ushuaia</text>
